@@ -1,32 +1,26 @@
-trigger: none
-
-pool: Mera Pool
-
 jobs:
--   job: 
-    displayName: Install NPM
-    steps:
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: 'npm install'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
-    
-    
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: 'npm run build'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
+- job: BuildAndPublish
+  pool: Mera Pool
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
 
--   job: 
-    displayName: Artifacts Store 
-    steps:
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)/ReactTodoUIMonolith-main/build'
-        ArtifactName: 'Mera Artifact'
-        publishLocation: 'Container'
-        MaxArtifactSize: 3
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        npm install
+        npm run build
+      workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
 
-    
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main/build'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'MeraArtifact'
