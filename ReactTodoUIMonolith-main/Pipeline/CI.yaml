@@ -4,15 +4,29 @@ pool: Mera Pool
 
 jobs:
 -   job: 
-    displayName: Install npn and node 
+    displayName: Install NPM
     steps:
-    - task: NodeTaskRunnerInstaller@0
-      inputs:
-        nodeVersion: '6'
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
         script: 'npm install'
         workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
     
+    
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: 'npm run build'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
+
+-   job: 
+    displayName: Artifacts Store 
+    steps:
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/ReactTodoUIMonolith-main/build'
+        ArtifactName: 'Mera Artifact'
+        publishLocation: 'Container'
+        MaxArtifactSize: 3
+
     
