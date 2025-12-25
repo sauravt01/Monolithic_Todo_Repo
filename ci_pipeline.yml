@@ -1,0 +1,26 @@
+jobs:
+- job: BuildAndPublish
+  pool: Mera Pool
+  steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        npm install
+        npm run build
+      workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main/build'
+      Contents: '**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'MeraArtifact'
