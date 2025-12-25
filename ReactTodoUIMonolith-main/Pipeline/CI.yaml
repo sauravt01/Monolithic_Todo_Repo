@@ -1,6 +1,6 @@
 trigger: none
 
-pool: Mera Poll
+pool: Mera Pool
 
 jobs:
 -   job: 
