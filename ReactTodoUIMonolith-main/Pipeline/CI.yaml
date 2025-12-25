@@ -15,7 +15,4 @@ jobs:
         script: 'npm install'
         workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
     
--   job:  
--   job: 
-      
     
