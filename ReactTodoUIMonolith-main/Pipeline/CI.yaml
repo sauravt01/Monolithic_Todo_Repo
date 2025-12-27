@@ -1,30 +1,44 @@
 jobs:
-- job: BuildAndPublish
-  pool: Mera Pool
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
+# - job: BuildAndPublish
+#   pool: Mera Pool
+#   steps:
+#   - task: NodeTool@0
+#     inputs:
+#       versionSpec: '18.x'
 
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        npm install
-        npm run build
-      workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
+#   - task: PowerShell@2
+#     inputs:
+#       targetType: 'inline'
+#       script: |
+#         npm install
+#         npm run build
+#       workingDirectory: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main'
 
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main/build'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#   - task: CopyFiles@2
+#     inputs:
+#       SourceFolder: '$(System.DefaultWorkingDirectory)/ReactTodoUIMonolith-main/build'
+#       Contents: '**'
+#       TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'MeraArtifact'
+#   - task: PublishBuildArtifacts@1
+#     inputs:
+#       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#       ArtifactName: 'MeraArtifact'
 
 - job: SonarQube 
   steps:
+  - task: SonarQubePrepare@8
+    inputs:
+      SonarQube: 'sonarqube'
+      scannerMode: 'cli'
+      configMode: 'manual'
+      cliProjectKey: 'jhgkjgh'
+      cliSources: '.'
   
+  - task: SonarQubeAnalyze@8
+    inputs:
+      jdkversion: 'JAVA_HOME'
+  
+  - task: SonarQubePublish@8
+    inputs:
+      pollingTimeoutSec: '300'
