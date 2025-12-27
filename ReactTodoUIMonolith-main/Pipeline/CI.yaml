@@ -41,6 +41,7 @@ jobs:
       extraProperties: |
         sonar.sourceEncoding=UTF-8
         sonar.scm.disabled=true
+        sonar.branch.name=
         sonar.exclusions=**/node_modules/**,**/build/**,**/dist/**,**/coverage/**
   
   - task: SonarQubeAnalyze@8
