@@ -37,10 +37,11 @@ jobs:
       configMode: 'manual'
       cliProjectKey: 'react-todo-ui'
       cliProjectName: 'react-todo-ui'
-      cliSources: 'ReactTodoUIMonolith-main/src'
+      cliSources: '.'
       extraProperties: |
         sonar.sourceEncoding=UTF-8
         sonar.scm.disabled=true
+        sonar.exclusions=**/node_modules/**,**/build/**,**/dist/**,**/coverage/**
   
   - task: SonarQubeAnalyze@8
     inputs:
