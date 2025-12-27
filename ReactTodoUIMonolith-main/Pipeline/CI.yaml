@@ -36,6 +36,7 @@ jobs:
       scannerMode: 'cli'
       configMode: 'manual'
       cliProjectKey: 'react-todo-ui'
+      cliProjectName: 'react-todo-ui'
       cliSources: 'ReactTodoUIMonolith-main/src'
   
   - task: SonarQubeAnalyze@8
