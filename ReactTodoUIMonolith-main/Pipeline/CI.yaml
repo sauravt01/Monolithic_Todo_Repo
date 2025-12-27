@@ -38,6 +38,9 @@ jobs:
       cliProjectKey: 'react-todo-ui'
       cliProjectName: 'react-todo-ui'
       cliSources: 'ReactTodoUIMonolith-main/src'
+      extraProperties: |
+        sonar.sourceEncoding=UTF-8
+        sonar.scm.disabled=true
   
   - task: SonarQubeAnalyze@8
     inputs:
