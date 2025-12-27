@@ -1,6 +1,9 @@
+trigger: none
+pool: Mera Pool
+
 jobs:
 # - job: BuildAndPublish
-#   pool: Mera Pool
+#   
 #   steps:
 #   - task: NodeTool@0
 #     inputs:
