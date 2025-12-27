@@ -24,3 +24,7 @@ jobs:
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'MeraArtifact'
+
+- job: SonarQube 
+  steps:
+  
