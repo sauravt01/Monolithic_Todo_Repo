@@ -1,10 +1,10 @@
-trigger: 
-  branches:
-    include:
-      - main
-pool: Mera Pool
+# trigger: 
+#   branches:
+#     include:
+#       - main
+# pool: Mera Pool
 
-jobs:
+# jobs:
 # - job: BuildAndPublish
 #   
 #   steps:
@@ -31,7 +31,20 @@ jobs:
 #       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 #       ArtifactName: 'MeraArtifact'
 
-- job: SonarQube 
+# 
+
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool: Mera Pool
+
+jobs:
+- job: SonarQube
+  variables:
+    SONARQUBE_SCANNER_PARAMS: '{}'
   steps:
   - task: SonarQubePrepare@8
     inputs:
@@ -40,15 +53,12 @@ jobs:
       configMode: 'manual'
       cliProjectKey: 'react-todo-ui'
       cliProjectName: 'react-todo-ui'
-      cliProjectVersion: 
       cliSources: '.'
-      extraProperties: |
-        sonar.branch.name=
-  
+
   - task: SonarQubeAnalyze@8
     inputs:
       jdkversion: 'JAVA_HOME_17_X64'
-  
+
   - task: SonarQubePublish@8
     inputs:
       pollingTimeoutSec: '1000'
