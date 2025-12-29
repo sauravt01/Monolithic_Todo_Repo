@@ -42,6 +42,8 @@ jobs:
       cliProjectName: 'react-todo-ui'
       cliProjectVersion: 
       cliSources: '.'
+      extraProperties: |
+        sonar.branch.name=
   
   - task: SonarQubeAnalyze@8
     inputs:
