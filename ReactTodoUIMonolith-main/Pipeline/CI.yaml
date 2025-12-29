@@ -32,22 +32,18 @@ jobs:
   steps:
   - task: SonarQubePrepare@8
     inputs:
-      SonarQube: 'sonarqube'
+      SonarQube: 'Sonarqube-connection-ADO'
       scannerMode: 'cli'
       configMode: 'manual'
       cliProjectKey: 'react-todo-ui'
       cliProjectName: 'react-todo-ui'
+      cliProjectVersion: 
       cliSources: '.'
-      extraProperties: |
-        sonar.sourceEncoding=UTF-8
-        sonar.scm.disabled=true
-        sonar.branch.name=
-        sonar.exclusions=**/node_modules/**,**/build/**,**/dist/**,**/coverage/**
   
   - task: SonarQubeAnalyze@8
     inputs:
-      jdkversion: 'JAVA_HOME'
+      jdkversion: 'JAVA_HOME_17_X64'
   
   - task: SonarQubePublish@8
     inputs:
-      pollingTimeoutSec: '300'
+      pollingTimeoutSec: '1000'
