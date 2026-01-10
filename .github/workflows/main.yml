@@ -32,7 +32,7 @@ jobs:
         path: ReactTodoUIMonolith-main/build
   deploy:
     needs: build
-    runs-on: [self-hosted, dev, Bond007]
+    runs-on: [ Bond007 ]
     environment: dev
 
     steps:
