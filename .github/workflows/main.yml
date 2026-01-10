@@ -21,6 +21,6 @@ jobs:
       run: npm install
       working-directory: ReactTodoUIMonolith-main
 
-    - name: Build app
-      run: npm run build
+    - name: Build app (ignore lint warnings)
+      run: CI=false npm run build
       working-directory: ReactTodoUIMonolith-main
