@@ -3,40 +3,32 @@ name: CI pipeline to todo monolithic application
 on:
   push:
     branches:
-    -  develop
-    -  main
+      - develop
+      - main
 
 permissions:
   id-token: write
   contents: read
-  
+
 jobs:
   npm-install:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v6.0.2
-      
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v6.1.0
-  
-    - name: NPM install cache
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: NPM install with cache
       uses: c-hive/gha-npm-cache@v1
       with:
         directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
 
-        
-    - name: build-npm-action
+    - name: Build application
       uses: ankitasen-ubmainz/build-npm-action@v0.2
       with:
         directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
-
-      
-      
-          
-    
-  
-
-    
-  
