@@ -24,12 +24,14 @@ jobs:
     - name: NPM install cache
       uses: c-hive/gha-npm-cache@v1
       with:
-        directory: $(GITHUB_WORKSPACE)/ReactTodoUIMonolith-main
+        directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
+
         
     - name: build-npm-action
       uses: ankitasen-ubmainz/build-npm-action@v0.2
       with:
-        directory: $(GITHUB_WORKSPACE)/ReactTodoUIMonolith-main
+        directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
+
       
       
           
