@@ -11,59 +11,65 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 18
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: npm install
-      working-directory: ReactTodoUIMonolith-main
+      - name: Install dependencies
+        run: npm install
+        working-directory: ReactTodoUIMonolith-main
 
-    - name: Build app (ignore lint warnings)
-      run: CI=false npm run build
-      working-directory: ReactTodoUIMonolith-main
-      
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: react-build
-        path: ReactTodoUIMonolith-main/build
+      - name: Build app (ignore lint warnings)
+        run: CI=false npm run build
+        working-directory: ReactTodoUIMonolith-main
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: react-build
+          path: ReactTodoUIMonolith-main/build
 
   scanning:
-      runs-on: ubuntu-latest
-      steps:
-      -  run: npm install --save-dev --save-exact @biomejs/biome
-         working-directory: ReactTodoUIMonolith-main
-         
-      -  run: npx @biomejs/biome init
-         working-directory: ReactTodoUIMonolith-main
-         
-      -  run: npx biome lint .
-         working-directory: ReactTodoUIMonolith-main
-         
-    
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ReactTodoUIMonolith-main
+
+      - name: Install Biome
+        run: npm install --save-dev --save-exact @biomejs/biome
+        working-directory: ReactTodoUIMonolith-main
+
+      - name: Init Biome
+        run: npx @biomejs/biome init
+        working-directory: ReactTodoUIMonolith-main
+
+      - name: Run Biome lint
+        run: npx biome lint .
+        working-directory: ReactTodoUIMonolith-main
+
   # deploy:
   #   needs: build
-  #   runs-on: [ Bond007 ]
+  #   runs-on: [self-hosted, Bond007]
   #   environment: dev
-
+  #
   #   steps:
-  #   - name: Download build artifact
-  #     uses: actions/download-artifact@v4
-  #     with:
-  #       name: react-build
-  #       path: /tmp/react-build
-
-  #   - name: Deploy to VM
-  #     run: |
-  #       sudo rm -rf /var/www/html/*
-  #       sudo cp -r /tmp/react-build/* /var/www/html/
-
-
-      
-   
-
-
-      
+  #     - name: Download build artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: react-build
+  #         path: /tmp/react-build
+  #
+  #     - name: Deploy to VM
+  #       run: |
+  #         sudo rm -rf /var/www/html/*
+  #         sudo cp -r /tmp/react-build/* /var/www/html/
