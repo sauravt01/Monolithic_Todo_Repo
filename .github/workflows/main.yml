@@ -17,13 +17,19 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6.0.2
+      
     - name: Setup Node.js environment
       uses: actions/setup-node@v6.1.0
   
     - name: NPM install cache
-      run: npm install
-    - name: NPM build 
-      run: npm run build 
+      uses: c-hive/gha-npm-cache@v1
+      with:
+        directory: $(GITHUB_WORKSPACE)/ReactTodoUIMonolith-main
+        
+    - name: build-npm-action
+      uses: ankitasen-ubmainz/build-npm-action@v0.2
+      with:
+        directory: $(GITHUB_WORKSPACE)/ReactTodoUIMonolith-main
       
       
           
