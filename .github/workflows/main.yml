@@ -6,38 +6,21 @@ on:
       - develop
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  npm-install:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 18
-        
-    - name: Cache npm
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-npm-${{ hashFiles('ReactTodoUIMonolith-main/package-lock.json') }}
-        restore-keys: |
-            ${{ runner.os }}-npm-
 
+    - name: Install dependencies
+      run: npm install
+      working-directory: ReactTodoUIMonolith-main
 
-    - name: NPM install with cache
-      uses: c-hive/gha-npm-cache@v1
-      with:
-        directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
-
-    - name: Build application
-      uses: ankitasen-ubmainz/build-npm-action@v0.2
-      with:
-        directory: ${{ github.workspace }}/ReactTodoUIMonolith-main
+    - name: Build app
+      run: npm run build
+      working-directory: ReactTodoUIMonolith-main
