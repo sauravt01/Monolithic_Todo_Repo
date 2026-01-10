@@ -1,0 +1,29 @@
+name: CI pipeline to todo monolithic application
+
+on:
+  push:
+    branches:
+    -  develop
+    -  main
+
+permissions:
+  id-token: write
+  contents: read
+  
+jobs:
+  npm-install:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: NPM install cache
+      run: npm install
+    - name: NPM build 
+      run: npm run build 
+      
+      
+          
+    
+  
+
+    
+  
