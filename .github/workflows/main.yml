@@ -24,3 +24,11 @@ jobs:
     - name: Build app (ignore lint warnings)
       run: CI=false npm run build
       working-directory: ReactTodoUIMonolith-main
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v6.0.
+      with:
+        path: build
+
+
+      
