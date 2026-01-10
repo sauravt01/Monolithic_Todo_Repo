@@ -30,6 +30,23 @@ jobs:
       with:
         name: react-build
         path: ReactTodoUIMonolith-main/build
+  deploy:
+    needs: build
+    runs-on: [self-hosted, dev, Bond007]
+    environment: dev
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: react-build
+        path: /tmp/react-build
+
+    - name: Deploy to VM
+      run: |
+        sudo rm -rf /var/www/html/*
+        sudo cp -r /tmp/react-build/* /var/www/html/
+
 
       
    
