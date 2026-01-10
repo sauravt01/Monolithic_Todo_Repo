@@ -22,6 +22,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 18
+        
+    - name: Cache npm
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('ReactTodoUIMonolith-main/package-lock.json') }}
+        restore-keys: |
+            ${{ runner.os }}-npm-
+
 
     - name: NPM install with cache
       uses: c-hive/gha-npm-cache@v1
