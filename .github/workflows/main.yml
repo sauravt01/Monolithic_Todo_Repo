@@ -34,7 +34,7 @@ jobs:
   scanning:
       runs-on: ubuntu-latest
       steps:
-      -  run: npm i -D -E @biomejs/biome
+      -  run: npm install --save-dev --save-exact @biomejs/biome
          working-directory: ReactTodoUIMonolith-main
          
       -  run: npx @biomejs/biome init
