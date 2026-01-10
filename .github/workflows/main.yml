@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v6.0.2
+  
     - name: NPM install cache
       run: npm install
     - name: NPM build 
