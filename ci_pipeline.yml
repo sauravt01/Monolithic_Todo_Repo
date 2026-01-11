@@ -1,5 +1,5 @@
 trigger: none
-pool: self-hosted-linux-pool
+pool: Mera pool
 
 jobs:
   - job: build
