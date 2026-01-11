@@ -1,5 +1,5 @@
 trigger: none
-pool: Mera Pool
+pool: Azure Pipelines
 
 jobs:
   - job: build
