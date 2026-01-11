@@ -1,5 +1,5 @@
 trigger: none
-pool: Azure Pipelines
+pool: self-hosted-linux-pool
 
 jobs:
   - job: build
