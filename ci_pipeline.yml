@@ -32,6 +32,7 @@ stages:
       - deployment:
         environment: 
           name: Saurav-tst
+          resourceType: virtualMachine
         strategy: 
           runOnce:
             deploy:
