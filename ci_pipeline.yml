@@ -2,7 +2,7 @@ trigger: none
 pool: Mera pool
 
 stages:
-  - stage:
+  - stage:  
     jobs:
       - job: build
         displayName: building application
@@ -24,19 +24,19 @@ stages:
             PathtoPublish: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main/build'
             ArtifactName: 'ReactTodoUI'
             publishLocation: 'Container'
-
-
-# stages:
-#   - stage:
-#     jobs:
-#       - deployment: ReactJS UI Deployment
-#         environment: 
-#           name: tst
-#           resourceName: virtualMachine
-#         strategy: 
-#           runOnce:
-#             deploy:
-#               steps:
-              
+  - stage: 
+    jobs:
+      - deployment: 
+        environment: 
+          name: Saurav-tst
+        strategy: 
+          runOnce:
+            deploy:
+              steps:
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  buildType: 'current'
+                  artifactName: 'ReactTodoUI'
+                  targetPath: '$(Pipeline.Workspace)'
         
           
