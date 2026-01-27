@@ -1,33 +1,32 @@
 trigger: none
 pool: Mera pool
 stages:
-  - stage: stage1
-    displayName: stage1
-    jobs:
-      - job: build
-        displayName: building application
-        steps:
-        - task: PowerShell@2
-          inputs:
-            targetType: 'inline'
-            script: 'npm install'
-            workingDirectory: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main'
+  # - stage: stage1
+  #   displayName: stage1
+  #   jobs:
+  #     - job: build
+  #       displayName: building application
+  #       steps:
+  #       - task: PowerShell@2
+  #         inputs:
+  #           targetType: 'inline'
+  #           script: 'npm install'
+  #           workingDirectory: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main'
 
-        - task: PowerShell@2
-          inputs:
-            targetType: 'inline'
-            script: 'npm run build'
-            workingDirectory: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main'
+  #       - task: PowerShell@2
+  #         inputs:
+  #           targetType: 'inline'
+  #           script: 'npm run build'
+  #           workingDirectory: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main'
 
-        - task: PublishBuildArtifacts@1
-          inputs:
-            PathtoPublish: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main/build'
-            ArtifactName: 'ReactTodoUI'
-            publishLocation: 'Container'
+  #       - task: PublishBuildArtifacts@1
+  #         inputs:
+  #           PathtoPublish: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main/build'
+  #           ArtifactName: 'ReactTodoUI'
+  #           publishLocation: 'Container'
 
   - stage: stage2
     displayName: stage2
-    dependsOn: stage1
     jobs:
       - deployment:
         environment: 
@@ -37,6 +36,15 @@ stages:
           runOnce:
             deploy:
               steps:
+              - task: DownloadPipelineArtifact@2
+                inputs:
+                  buildType: 'specific'
+                  project: '775e0587-b963-415e-85f6-eb77cb35ff50'
+                  definition: '2'
+                  buildVersionToDownload: 'specific'
+                  pipelineId: '91'
+                  artifactName: 'ReactTodoUI'
+                  targetPath: '$(Pipeline.Workspace)'
               - task: DownloadPipelineArtifact@2
                 inputs:
                   buildType: 'current'
