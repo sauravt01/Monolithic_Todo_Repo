@@ -1,8 +1,8 @@
 trigger: none
 
-
 stages:
-  - stage:  
+  - stage: stage1
+    displayName: stage1
     jobs:
       - job: build
         pool: Mera pool
@@ -25,9 +25,12 @@ stages:
             PathtoPublish: '$(Build.SourcesDirectory)/ReactTodoUIMonolith-main/build'
             ArtifactName: 'ReactTodoUI'
             publishLocation: 'Container'
-  - stage: 
+
+  - stage: stage2
+    displayName: stage2
+    dependsOn: stage1
     jobs:
-      - deployment: 
+      - deployment:
         environment: 
           name: Saurav-tst
         strategy: 
@@ -39,5 +42,3 @@ stages:
                   buildType: 'current'
                   artifactName: 'ReactTodoUI'
                   targetPath: '$(Pipeline.Workspace)'
-        
-          
