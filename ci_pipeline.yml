@@ -56,5 +56,5 @@ stages:
                   targetType: 'inline'
                   script: |
                     sudo rm -rf  /var/www/html/*
-                    sudo cp $(Pipeline.Workspace)/Build/* /var/www/html
+                    sudo cp -r $(Pipeline.Workspace)/Build/* /var/www/html
               
