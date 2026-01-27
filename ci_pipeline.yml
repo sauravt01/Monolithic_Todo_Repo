@@ -1,10 +1,11 @@
 trigger: none
-pool: Mera pool
+
 
 stages:
   - stage:  
     jobs:
       - job: build
+        pool: Mera pool
         displayName: building application
         steps:
         - task: PowerShell@2
