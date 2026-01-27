@@ -44,16 +44,17 @@ stages:
                   buildVersionToDownload: 'specific'
                   pipelineId: '91'
                   artifactName: 'ReactTodoUI'
-                  targetPath: '$(Pipeline.Workspace)'
-              - task: DownloadPipelineArtifact@2
-                inputs:
-                  buildType: 'current'
-                  artifactName: 'ReactTodoUI'
-                  targetPath: '$(Pipeline.Workspace)'
+                  targetPath: '$(Pipeline.Workspace)/Build'
+              # - task: DownloadPipelineArtifact@2
+              #   inputs:
+              #     buildType: 'current'
+              #     artifactName: 'ReactTodoUI'
+              #     targetPath: '$(Pipeline.Workspace)'
+
               - task: Bash@3
                 inputs:
                   targetType: 'inline'
                   script: |
                     sudo rm -rf  /var/www/html/*
-                    sudo cp $(Pipeline.Workspace)/ReactTodoUI/* /var/www/html
+                    sudo cp $(Pipeline.Workspace)/Build/* /var/www/html
               
