@@ -1,11 +1,10 @@
 trigger: none
-
+pool: Mera pool
 stages:
   - stage: stage1
     displayName: stage1
     jobs:
       - job: build
-        pool: Mera pool
         displayName: building application
         steps:
         - task: PowerShell@2
@@ -42,3 +41,10 @@ stages:
                   buildType: 'current'
                   artifactName: 'ReactTodoUI'
                   targetPath: '$(Pipeline.Workspace)'
+              - task: Bash@3
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    sudo rm -rf  /var/www/html/*
+                    sudo cp $(Pipeline.Workspace)/ReactTodoUI/* /var/www/html
+              
